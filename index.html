@@ -25,7 +25,8 @@ $( document ).ready(function() {
     $(this).addClass("living");
     targetBeginCells++;
     let id = $(this).attr("id");
-    findNeighbors(id);
+    //findNeighbors(id);
+    findLivingCells();
     /*if (targetBeginCells >= 5) {
         launch();
     }*/
@@ -41,6 +42,11 @@ function initGrid() {
     }
     $('.container').append(grid);
 };
+
+function findLivingCells() {
+    var livingCells = document.getElementsByClassName('living');
+    console.log(livingCells);
+}
 
 /*function launch() {
 

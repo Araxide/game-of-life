@@ -25,8 +25,7 @@ $( document ).ready(function() {
     $(this).addClass("living");
     targetBeginCells++;
     let id = $(this).attr("id");
-    //findNeighbors(id);
-    findLivingCells();
+    findNeighbors(id);
     /*if (targetBeginCells >= 5) {
         launch();
     }*/
@@ -45,7 +44,6 @@ function initGrid() {
 
 function findLivingCells() {
     var livingCells = document.getElementsByClassName('living');
-    console.log(livingCells);
 }
 
 /*function launch() {
@@ -53,27 +51,34 @@ function findLivingCells() {
 }*/
 
 function findNeighbors(id) {
-    var neighbors =0;
+    var neighbors = [];
     let indexArray = id.split('_');
     // first digit is line number
     let iLine = Number(indexArray[0]);
     // second is column number  
     let iCol = Number(indexArray[1]);
     console.log(iLine, iCol);
+    // on top
     if (iLine!=0){
-        //let iLineNeighbor = iLine -1;
-        neighbors++;
+        let iLineNeighbor = iLine -1;
+        neighbors.push($('#'+iLineNeighbor+'_'+iCol));
     }
+    // on left 
     if (iCol!=0){
-        neighbors++;
+        let iColNeighbor = iCol -1;
+        neighbors.push($('#'+iLine+'_'+iColNeighbor));
     }
+    // on right
     if (iCol!=(w-1)){
-        neighbors++;
+        let iColNeighbor = iCol +1;
+        neighbors.push($('#'+iLine+'_'+iColNeighbor));
     }
+    // on bottom
     if (iLine!=(h-1)){
-        neighbors++;
+        let iLineNeighbor = iLine +1;
+        neighbors.push($('#'+iLineNeighbor+'_'+iCol));
     }
-    console.log(neighbors);
+    return neighbors;
 }
 
 </script>

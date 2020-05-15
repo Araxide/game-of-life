@@ -1,0 +1,20 @@
+/* Game */
+.container {
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+  }
+  .container div {
+    background-color: #fff;
+    border: 1px solid black;
+  }
+  
+  .container div::before {
+    content: "";
+    padding-bottom: 100%;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .living {
+    background-color: green !important;
+  }

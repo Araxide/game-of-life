@@ -57,6 +57,18 @@ function extractIndex(id) {
     // second is column number  
     let iCol = indexArray[1];
     console.log(iLine, iCol);
+    if (iLine==0){
+        console.log("pas de voisin au dessus");
+    }
+    if (iCol==0){
+        console.log("pas de voisin à gauche");
+    }
+    if (iCol==(w-1)){
+        console.log("pas de voisin à droite");
+    }
+    if (iLine==(h-1)){
+        console.log("pas de voisin en dessous");
+    }
 }
 </script>
 

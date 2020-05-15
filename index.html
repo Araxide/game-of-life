@@ -47,28 +47,28 @@ function initGrid() {
 }*/
 
 function findNeighbors(id) {
-    extractIndex(id);
-}
-
-function extractIndex(id) {
+    var neighbors =0;
     let indexArray = id.split('_');
     // first digit is line number
-    let iLine = indexArray[0];
+    let iLine = Number(indexArray[0]);
     // second is column number  
-    let iCol = indexArray[1];
+    let iCol = Number(indexArray[1]);
     console.log(iLine, iCol);
-    if (iLine==0){
-        console.log("pas de voisin au dessus");
+    if (iLine!=0){
+        //let iLineNeighbor = iLine -1;
+        neighbors++;
     }
-    if (iCol==0){
-        console.log("pas de voisin à gauche");
+    if (iCol!=0){
+        neighbors++;
     }
-    if (iCol==(w-1)){
-        console.log("pas de voisin à droite");
+    if (iCol!=(w-1)){
+        neighbors++;
     }
-    if (iLine==(h-1)){
-        console.log("pas de voisin en dessous");
+    if (iLine!=(h-1)){
+        neighbors++;
     }
+    console.log(neighbors);
 }
+
 </script>
 

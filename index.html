@@ -16,16 +16,27 @@
 // global grid size variables
 var w = 30;
 var h = 20;
+var nbCells = 5;
 // on document ready
 $( document ).ready(function() {
+    var initCells = 0;
     initGrid();
     // functions
     $( '.square' ).click(function() {
         $(this).addClass("living");
-        let id = $(this).attr("id");
-        countLivingNeighbors(id);
+        //let id = $(this).attr("id");
+        initCells++;
+        if (initCells >= nbCells) {
+            launchGame();
+        }
+        // setCellState(countLivingNeighbors(id), id);
     });
 });
+
+function launchGame() {
+    jQuery('.square').unbind('click');
+    alert("game is launched");
+}
 
 // functions
 function initGrid() {
@@ -42,6 +53,14 @@ function findLivingCells(id) {
     var livingCells = Array.from(document.getElementsByClassName('living'));
 }
 
+function setCellState(id, counter) {
+    if (counter==2 || counter==3) {
+        $('#'+id).addClass("living");     
+    } else {
+        $('#'+id).removeClass("living");
+    }
+}
+
 function countLivingNeighbors(id) {
     var neighbors = findNeighbors(id);
     var counter = 0;
@@ -50,7 +69,7 @@ function countLivingNeighbors(id) {
             counter++;
         }
     }
-    console.log(counter);
+    return counter;
 }
 
 function findNeighbors(id) {

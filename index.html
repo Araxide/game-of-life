@@ -36,7 +36,8 @@ $( document ).ready(function() {
 
 function launchGame() {
     jQuery('.square').unbind('click');
-    var b = setInterval("alert('run each 3 seconds')",interval);
+    var id = "10_24";
+    var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
 }
 
 // functions
@@ -81,7 +82,6 @@ function findNeighbors(id) {
     let iLine = Number(indexArray[0]);
     // second is column number  
     let iCol = Number(indexArray[1]);
-    console.log(iLine, iCol);
     // on top
     if (iLine!=0){
         let iLineNeighbor = iLine -1;

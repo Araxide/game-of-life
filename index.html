@@ -17,6 +17,7 @@
 var w = 30;
 var h = 20;
 var nbCells = 5;
+var interval = 3000;
 // on document ready
 $( document ).ready(function() {
     var initCells = 0;
@@ -35,11 +36,12 @@ $( document ).ready(function() {
 
 function launchGame() {
     jQuery('.square').unbind('click');
-    alert("game is launched");
+    var b = setInterval("alert('run each 3 seconds')",interval);
 }
 
 // functions
 function initGrid() {
+    // here we draw game grid
     var grid = "";
     for (let j=0; j <h; j++) {
         for (let i = 0; i < w; i++) {

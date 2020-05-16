@@ -18,19 +18,15 @@ var w = 30;
 var h = 20;
 // on document ready
 $( document ).ready(function() {
-    var targetBeginCells = 0;
     initGrid();
     // functions
     $( '.square' ).click(function() {
-    $(this).addClass("living");
-    targetBeginCells++;
-    let id = $(this).attr("id");
-    findNeighbors(id);
-    /*if (targetBeginCells >= 5) {
-        launch();
-    }*/
+        $(this).addClass("living");
+        let id = $(this).attr("id");
+        countLivingNeighbors(id);
     });
 });
+
 // functions
 function initGrid() {
     var grid = "";
@@ -42,13 +38,20 @@ function initGrid() {
     $('.container').append(grid);
 };
 
-function findLivingCells() {
-    var livingCells = document.getElementsByClassName('living');
+function findLivingCells(id) {
+    var livingCells = Array.from(document.getElementsByClassName('living'));
 }
 
-/*function launch() {
-
-}*/
+function countLivingNeighbors(id) {
+    var neighbors = findNeighbors(id);
+    var counter = 0;
+    for (i = 0; i < neighbors.length; i++) {
+        if(neighbors[i].classList.contains("living")) {
+            counter++;
+        }
+    }
+    console.log(counter);
+}
 
 function findNeighbors(id) {
     var neighbors = [];
@@ -61,23 +64,27 @@ function findNeighbors(id) {
     // on top
     if (iLine!=0){
         let iLineNeighbor = iLine -1;
-        neighbors.push($('#'+iLineNeighbor+'_'+iCol));
+        neighbors.push(document.getElementById(+iLineNeighbor+'_'+iCol));
     }
+    // on top left 
+    // on top right
     // on left 
     if (iCol!=0){
         let iColNeighbor = iCol -1;
-        neighbors.push($('#'+iLine+'_'+iColNeighbor));
+        neighbors.push(document.getElementById(+iLine+'_'+iColNeighbor));
     }
     // on right
     if (iCol!=(w-1)){
         let iColNeighbor = iCol +1;
-        neighbors.push($('#'+iLine+'_'+iColNeighbor));
+        neighbors.push(document.getElementById(+iLine+'_'+iColNeighbor));
     }
     // on bottom
     if (iLine!=(h-1)){
         let iLineNeighbor = iLine +1;
-        neighbors.push($('#'+iLineNeighbor+'_'+iCol));
+        neighbors.push(document.getElementById(+iLineNeighbor+'_'+iCol));
     }
+    // on bottom left 
+    // on bottom right
     return neighbors;
 }
 

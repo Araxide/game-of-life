@@ -16,8 +16,10 @@
 // initialization game variables
 var w = 30; // col number
 var h = 20; // line number
-var nbCells = 7; // nb living cells defined on click by user
+var nbCells = 10; // nb living cells defined on click by user
 var interval = 3000; // game state will be recalculated every interval 
+// state variables 
+var nextState={}; // id is key
 // on document ready
 $( document ).ready(function() {
     var initCells = 0;
@@ -36,10 +38,12 @@ $( document ).ready(function() {
 
 function launchGame() {
     jQuery('.square').unbind('click');
-    $.each([$('.living')], function(){
-        // do a lot of things here
-        setCellState(this.id, countLivingNeighbors(this.id));
-    });
+    var elements = Array.from(document.getElementsByClassName('living'));
+    for (let i=0; i < elements.length; i++) {
+        let id = elements[i].id;
+        recordCellState(id, countLivingNeighbors(id));
+    }
+    console.log(nextState);
     //var id = "10_24";
     //var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
 }
@@ -50,11 +54,22 @@ function initGrid() {
     var grid = "";
     for (let j=0; j <h; j++) {
         for (let i = 0; i < w; i++) {
-            grid += "<div class='square' id="+j+"_"+i+"></div>";
+            grid += "<div class='square' id="+j+"_"+i+"></div>"; // drawing each cell and appending class with unique id
+            nextState[j+"_"+i]="onInit"; // we initiate obj where we are gonna store next step while calculating all states
         }
     }
     $('.container').append(grid);
 };
+
+function recordCellState(id, counter) {
+    if ($('#'+id).hasClass("living")) {
+        // cell is living - it stays alive if 2 or 3 living neighbors
+        ((counter!=2) && (counter!=3)) ? nextState[id]="dead" : nextState[id]="living";         
+    } else {
+        // cell is dead - it comes alive if exactly 3 living neighbors 
+         (counter==3) ? nextState[id]="living" : nextState[id]="dead"; 
+    }
+}
 
 function setCellState(id, counter) {
     if ($('#'+id).hasClass("living")) {
@@ -82,7 +97,6 @@ function countLivingNeighbors(id) {
 }
 
 function findNeighbors(id) {
-    debugger;
     var neighbors = [];
     let indexArray = id.split('_');
     // first digit is line number

@@ -43,8 +43,7 @@ function launchGame() {
         let id = elements[i].id;
         recordCellState(id, countLivingNeighbors(id));
     }
-    console.log(nextState);
-    //var id = "10_24";
+    giveNewState(elements);
     //var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
 }
 
@@ -61,6 +60,17 @@ function initGrid() {
     $('.container').append(grid);
 };
 
+function displayNewState(elements) {
+    for (let i=0; i < elements.length; i++) {
+        let id = elements[i].id;
+        if (nextState[id]=="living") { 
+            $('#'+id).addClass("living");  
+        } else {
+            $('#'+id).removeClass("living"); 
+        }
+    }   
+}
+
 function recordCellState(id, counter) {
     if ($('#'+id).hasClass("living")) {
         // cell is living - it stays alive if 2 or 3 living neighbors
@@ -68,20 +78,6 @@ function recordCellState(id, counter) {
     } else {
         // cell is dead - it comes alive if exactly 3 living neighbors 
          (counter==3) ? nextState[id]="living" : nextState[id]="dead"; 
-    }
-}
-
-function setCellState(id, counter) {
-    if ($('#'+id).hasClass("living")) {
-        // cell is living - it stays alive if 2 or 3 living neighbors
-        if ((counter!=2) && (counter!=3)) {
-            $('#'+id).removeClass("living");           
-        }
-    } else {
-        // cell is dead - it comes alive if exactly 3 living neighbors 
-        if (counter==3) {
-            $('#'+id).addClass("living");            
-        }
     }
 }
 

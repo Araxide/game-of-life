@@ -16,7 +16,7 @@
 // global grid size variables
 var w = 30;
 var h = 20;
-var nbCells = 5;
+var nbCells = 7;
 var interval = 3000;
 // on document ready
 $( document ).ready(function() {
@@ -36,8 +36,8 @@ $( document ).ready(function() {
 
 function launchGame() {
     jQuery('.square').unbind('click');
-    //var id = "10_24";
-    //var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
+    var id = "10_24";
+    var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
 }
 
 // functions
@@ -57,10 +57,17 @@ function findLivingCells(id) {
 }
 
 function setCellState(id, counter) {
-    if (counter==2 || counter==3) {
-        $('#'+id).addClass("living");     
+    debugger;
+    if ($('#'+id).hasClass("living")) {
+        // cell is living - it stays alive if 2 or 3 living neighbors
+        if ((counter!=2) && (counter!=3)) {
+            $('#'+id).removeClass("living");           
+        }
     } else {
-        $('#'+id).removeClass("living");
+        // cell is dead - it comes alive if exactly 3 living neighbors 
+        if (counter==3) {
+            $('#'+id).addClass("living");            
+        }
     }
 }
 

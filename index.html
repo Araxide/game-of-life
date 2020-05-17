@@ -36,8 +36,8 @@ $( document ).ready(function() {
 
 function launchGame() {
     jQuery('.square').unbind('click');
-    var id = "10_24";
-    var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
+    //var id = "10_24";
+    //var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
 }
 
 // functions
@@ -87,8 +87,18 @@ function findNeighbors(id) {
         let iLineNeighbor = iLine -1;
         neighbors.push(document.getElementById(+iLineNeighbor+'_'+iCol));
     }
-    // on top left 
-    // on top right
+    // on top left - à voir pour améliorer
+    if ((iLine!=0)&&(iCol!=0)){
+        let iLineNeighbor = iLine -1;
+        let iColNeighbor = iCol -1;
+        neighbors.push(document.getElementById(+iLineNeighbor+'_'+iColNeighbor));
+    }
+    // on top right - à voir pour améliorer 
+    if ((iLine!=0)&&(iCol!=(w-1))){
+        let iLineNeighbor = iLine -1;
+        let iColNeighbor = iCol +1;
+        neighbors.push(document.getElementById(+iLineNeighbor+'_'+iColNeighbor));
+    }
     // on left 
     if (iCol!=0){
         let iColNeighbor = iCol -1;
@@ -104,8 +114,19 @@ function findNeighbors(id) {
         let iLineNeighbor = iLine +1;
         neighbors.push(document.getElementById(+iLineNeighbor+'_'+iCol));
     }
-    // on bottom left 
-    // on bottom right
+    // on bottom left - à voir pour améliorer
+    if ((iLine!=(h-1))&&(iCol!=0)){
+        let iLineNeighbor = iLine +1;
+        let iColNeighbor = iCol -1;
+        neighbors.push(document.getElementById(+iLineNeighbor+'_'+iColNeighbor));
+    }
+    // on bottom right - à voir pour améliorer 
+    if ((iLine!=(h-1))&&(iCol!=(w-1))){
+        let iLineNeighbor = iLine +1;
+        let iColNeighbor = iCol +1;
+        neighbors.push(document.getElementById(+iLineNeighbor+'_'+iColNeighbor));
+    }
+    // return
     return neighbors;
 }
 

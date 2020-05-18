@@ -16,7 +16,7 @@
 // initialization game variables
 var w = 30; // col number
 var h = 20; // line number
-var nbCells = 10; // nb living cells defined on click by user
+var nbCells = 6; // nb living cells defined on click by user
 var interval = 3000; // game state will be recalculated every interval 
 // state variables 
 var nextState={}; // id is key
@@ -38,13 +38,13 @@ $( document ).ready(function() {
 
 function launchGame() {
     jQuery('.square').unbind('click');
-    var elements = Array.from(document.getElementsByClassName('living'));
+    var elementsSet = findElementsToCheck();
+    var elements = Array.from(elementsSet);
     for (let i=0; i < elements.length; i++) {
         let id = elements[i].id;
         recordCellState(id, countLivingNeighbors(id));
     }
-    giveNewState(elements);
-    //var b = setInterval(setCellState(id, countLivingNeighbors(id)),interval);
+    displayNewState(elements);
 }
 
 // functions
@@ -71,7 +71,7 @@ function displayNewState(elements) {
     }   
 }
 
-function recordCellState(id, counter) {
+function recordCellState(id, counter) { 
     if ($('#'+id).hasClass("living")) {
         // cell is living - it stays alive if 2 or 3 living neighbors
         ((counter!=2) && (counter!=3)) ? nextState[id]="dead" : nextState[id]="living";         
@@ -79,6 +79,18 @@ function recordCellState(id, counter) {
         // cell is dead - it comes alive if exactly 3 living neighbors 
          (counter==3) ? nextState[id]="living" : nextState[id]="dead"; 
     }
+}
+
+function findElementsToCheck() {
+    var setElements = new Set();
+    var livingCurrent = Array.from(document.getElementsByClassName('living'));
+    for (let i = 0; i < livingCurrent.length; i++) {
+        var neighbors = findNeighbors(livingCurrent[i].id);
+        neighbors.forEach(setElements.add, setElements);
+    }
+    livingCurrent.forEach(setElements.add, setElements);
+    return setElements;
+    
 }
 
 function countLivingNeighbors(id) {

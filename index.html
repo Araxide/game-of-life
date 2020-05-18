@@ -13,7 +13,7 @@
             <input type="number" id="colNb" placeholder="30" value="30" min= max="150" step="10">
             <label for="liNb">Line number:</label>
             <input type="number" id="liNb" placeholder="20" value="20" min="20" max="100" step="10">
-            <button type="submit" onclick="initGrid();return false;">Launch</button>
+            <button type="submit" onclick="refreshGrid();return false;">Launch</button>
         </form>
         <div class="container">  
         </div>
@@ -59,15 +59,28 @@ function nextMove() {
     displayNewState(elements);
 }
 
-// functions
-function initGrid() {
-    // here we draw game grid
+function refreshGrid() {
+     // here we draw game grid
     let w = $('#colNb').val(); // columns number
     let h = $('#liNb').val(); // lines
-    console.log(w, h);
+    let elemContainer = $('.container');
+    elemContainer[0].style.gridTemplateColumns = "repeat("+w+", 1fr)";
     var grid = "";
     for (let j=0; j <h; j++) {
         for (let i = 0; i < w; i++) {
+            grid += "<div class='square' id="+j+"_"+i+"></div>"; // drawing each cell and appending class with unique id
+            nextState[j+"_"+i]="onInit"; // we initiate obj where we are gonna store next step while calculating all states
+        }
+    }
+    $('.container').html(grid);   
+}
+
+// functions
+function initGrid() {
+    // here we draw game grid
+    var grid = "";
+    for (let j=0; j <20; j++) {
+        for (let i = 0; i < 30; i++) {
             grid += "<div class='square' id="+j+"_"+i+"></div>"; // drawing each cell and appending class with unique id
             nextState[j+"_"+i]="onInit"; // we initiate obj where we are gonna store next step while calculating all states
         }

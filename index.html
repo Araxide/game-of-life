@@ -16,8 +16,8 @@
 // initialization game variables
 var w = 30; // col number
 var h = 20; // line number
-var nbCells = 6; // nb living cells defined on click by user
-var interval = 3000; // game state will be recalculated every interval 
+var nbCells = 9; // nb living cells defined on click by user
+var interval = 2000; // game state will be recalculated every interval 
 // state variables 
 var nextState={}; // id is key
 // on document ready
@@ -38,6 +38,10 @@ $( document ).ready(function() {
 
 function launchGame() {
     jQuery('.square').unbind('click');
+    const live = setInterval(nextMove, interval);
+}
+
+function nextMove() {
     var elementsSet = findElementsToCheck();
     var elements = Array.from(elementsSet);
     for (let i=0; i < elements.length; i++) {

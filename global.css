@@ -1,11 +1,12 @@
 /* Game */
 .container {
     display: grid;
-    grid-template-columns: repeat(30, 1fr);
+    grid-template-columns: repeat(90, 1fr);
+    grid-template-rows: repeat(60, 1.5vh);
   }
   .container div {
-    background-color: #fff;
-    border: 1px solid black;
+    background-color: purple;
+    border: 1px dotted pink;
   }
   
   .container div::before {
@@ -16,7 +17,7 @@
   }
 
   .living {
-    background-color: green !important;
+    background-color: burlywood !important;
   }
 
   /* Style the form - display items horizontally */
